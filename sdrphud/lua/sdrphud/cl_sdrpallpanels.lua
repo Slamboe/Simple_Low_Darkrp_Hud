@@ -1,21 +1,39 @@
-local elementsToRemove = {
-"DarkRP_HUD",
-"DarkRP_EntityDisplay",
-"DarkRP_LocalPlayerHUD",
-"DarkRP_Hungermod",
-"DarkRP_Agenda",
-"DarkRP_LockdownHUD",
-"DarkRP_ArrestedHUD",
-"DarkRP_ChatReceivers",
+local hideHUDElements = {
+    -- if you DarkRP_HUD this to true, ALL of DarkRP's HUD will be disabled. That is the health bar and stuff,
+    -- but also the agenda, the voice chat icons, lockdown text, player arrested text and the names above players' heads
+    ["DarkRP_HUD"] = true,
+
+    -- DarkRP_EntityDisplay is the text that is drawn above a player when you look at them.
+    -- This also draws the information on doors and vehicles
+    ["DarkRP_EntityDisplay"] = true,
+
+    -- This is the one you're most likely to replace first
+    -- DarkRP_LocalPlayerHUD is the default HUD you see on the bottom left of the screen
+    -- It shows your health, job, salary and wallet, but NOT hunger (if you have hungermod enabled)
+    ["DarkRP_LocalPlayerHUD"] = true,
+
+    -- If you have hungermod enabled, you will see a hunger bar in the DarkRP_LocalPlayerHUD
+    -- This does not get disabled with DarkRP_LocalPlayerHUD so you will need to disable DarkRP_Hungermod too
+    ["DarkRP_Hungermod"] = true,
+
+    -- Drawing the DarkRP agenda
+    ["DarkRP_Agenda"] = true,
+
+    -- Lockdown info on the HUD
+    ["DarkRP_LockdownHUD"] = true,
+
+    -- Arrested HUD
+    ["DarkRP_ArrestedHUD"] = true,
+
+    -- Chat receivers box when you open chat or speak over the microphone
+    ["DarkRP_ChatReceivers"] = true,
+	
+	-- Defeult Ammo Hud
+	["CHudAmmo"] = true,
 }
 
-hook.Add("HUDShouldDraw", "HideDefaultDarkRPHUD", function(name)
-    if table.HasValue(elementsToRemove, name) then
-        return false
-    end
-    if name == "CHudAmmo" then
-        return false
-    end
+hook.Add("HUDShouldDraw", "HideDefaultDarkRPHud", function(name)
+    if hideHUDElements[name] then return false end
 end)
 
 include("sdrphud/sdrpconfig.lua")
